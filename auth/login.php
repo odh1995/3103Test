@@ -2,8 +2,18 @@
 
 $passwordErr ="";
 
+$data = fopen('10-million-password-list-top-1000000.txt','r');
+echo $data;
+
 if ( ! isset( $_POST['submitted'] ) )
 {
+    foreach($data as $line_num=>$line)
+    {
+        if($password == $line){
+            $passwordErr = "Common Password not allow!";
+        }
+    }
+
     if(!empty($_POST["password"]) && ($_POST["password"] == $_POST["cpassword"])) {
         $password = test_input($_POST["password"]);
         $cpassword = test_input($_POST["cpassword"]);
@@ -25,6 +35,7 @@ if ( ! isset( $_POST['submitted'] ) )
     } else {
          $passwordErr = "Please enter password   ";
     }
+    echo $passwordErr;
 }
 header('Location: ' . $_SERVER['HTTP_REFERER']);
 
